@@ -1,0 +1,32 @@
+[package]
+name = "play-soroban"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { version = "21.4.0" }
+
+[dev-dependencies]
+soroban-sdk = { version = "21.4.0", features = ["testutils"] }
+
+[features]
+testutils = ["soroban-sdk/testutils"]
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+debug-assertions = false
+strip = "symbols"
+panic = "abort"
+codegen-units = 1
+lto = true
+
+[profile.release-with-logs]
+inherits = "release"
+debug-assertions = true
